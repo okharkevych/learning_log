@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from .forms import TopicForm
+from .forms import TopicForm, EntryForm
 from .models import Topic
 
 
@@ -39,3 +39,23 @@ def new_topic(request):
     # Show an empty or invalid form
     context = {'form': form}
     return render(request, 'learning_logs/new_topic.html', context)
+
+
+def new_entry(request, topic_id):
+    """Add a new entry to a particular topic"""
+    topic = Topic.objects.get(id=topic_id)
+    if request.method != 'POST':
+        # No data sent; create a new empty form
+        form = EntryForm()
+    else:
+        # Received data in POST request; process data
+        form = EntryForm(data=request.POST)
+        if form.is_valid():
+            new_entry = form.save(commit=False)
+            new_entry.topic = topic
+            new_entry.save()
+            return redirect('learning_logs:topic', topic_id=topic_id)
+
+    # Show an empty or invalid form
+    context = {'topic': topic, 'form': form}
+    return render(request, 'learning_logs/new_entry.html', context)
