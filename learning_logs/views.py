@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 from django.shortcuts import render, redirect
 
 from .forms import TopicForm, EntryForm
@@ -10,10 +11,15 @@ def index(request):
     return render(request, 'learning_logs/index.html')
 
 
+def check_topic_owner(topic, request):
+    if topic.owner != request.user:
+        raise Http404
+
+
 @login_required
 def topics(request):
-    """Displays all topics"""
-    topics = Topic.objects.order_by('date_added')
+    """Show all topics"""
+    topics = Topic.objects.filter(owner=request.user).order_by('date_added')
     context = {'topics': topics}
     return render(request, 'learning_logs/topics.html', context)
 
@@ -22,6 +28,8 @@ def topics(request):
 def topic(request, topic_id):
     """Show a single topic and all its entries"""
     topic = Topic.objects.get(id=topic_id)
+    check_topic_owner(topic, request)
+
     entries = topic.entry_set.order_by('-date_added')
     context = {'topic': topic, 'entries': entries}
     return render(request, 'learning_logs/topic.html', context)
@@ -37,7 +45,9 @@ def new_topic(request):
         # POST sent; process data
         form = TopicForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            new_topic = form.save(commit=False)
+            new_topic.owner = request.user
+            new_topic.save()
             return redirect('learning_logs:topics')
 
     # Show an empty or invalid form
@@ -49,6 +59,8 @@ def new_topic(request):
 def new_entry(request, topic_id):
     """Add a new entry to a particular topic"""
     topic = Topic.objects.get(id=topic_id)
+    check_topic_owner(topic, request)
+
     if request.method != 'POST':
         # No data sent; create a new empty form
         form = EntryForm()
@@ -71,6 +83,7 @@ def edit_entry(request, entry_id):
     """Edit an existing entry"""
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
+    check_topic_owner(topic, request)
 
     if request.method != 'POST':
         # Initial request; pre-fill form with the current entry
