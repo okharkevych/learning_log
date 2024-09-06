@@ -1,11 +1,18 @@
-<p>
+<div>
     <a href="{% url 'learning_logs:index' %}">Learning Log</a> -
     <a href="{% url 'learning_logs:topics' %}">Topics</a> -
     {% if user.is_authenticated %}
         Hello, {{ user.username }}.
+
+        <form method="post" action="{% url 'users:logout' %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" style="background:none; border:none; color:blue; cursor:pointer; text-decoration:underline; padding:0; font-size:16px; font-family:serif;">
+                Log out
+            </button>
+        </form>
     {% else %}
         <a href="{% url 'users:login' %}">Log in</a>
     {% endif %}
-</p>
+</div>
 
 {% block content %}{% endblock content %}
