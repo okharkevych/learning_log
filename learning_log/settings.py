@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -19,11 +20,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
+# Load environment variables from .env and .env.dev files
+load_dotenv('ll_env/.env')
+load_dotenv('ll_env/.env.dev')
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-k_a94ho5y@d90i_gqn9sw_#9zjzr__iguj+bj1skrnqww95-f1'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', default='FALSE') == 'TRUE'
 
 ALLOWED_HOSTS = []
 
@@ -132,8 +137,3 @@ LOGIN_URL = 'users:login'
 import django_heroku
 
 django_heroku.settings(locals())
-
-if os.environ.get('DEBUG') == 'TRUE':
-    DEBUG = True
-elif os.environ.get('DEBUG') == 'FALSE':
-    DEBUG = False
