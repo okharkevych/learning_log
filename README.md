@@ -130,11 +130,32 @@ directory in terminal
 
 ## How to run locally
 - Open learning_log directory downloaded earlier in terminal
-- Enter the following command:
+
+**Add a secret key environmental variable to allow the website to run**
+- Enter the following commands:
 
 ```
 >>> pipenv shell
+>>> > ll_env/.env
+>>> python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+```
+
+- Copy the terminal output
+- Open ll_env/.env file in a text editor of your choosing
+- Write "SECRET_KEY", than paste the terminal output
+- Save changes to .env file
+
+**Initialize local database**
+- Enter the following command:
+
+```
 >>> python manage.py migrate
+```
+
+**Run local server to host the website**
+- Enter the following command:
+
+```
 >>> python manage.py runserver
 ```
 
