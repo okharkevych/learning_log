@@ -17,8 +17,9 @@ Last but not least, the web app has customized error handling for common errors.
 
 Learning Log is ready for deployment on https://www.heroku.com/
 
-Please note that 'heroku-postgresql' (aka Heroku Postgres) addon is required on
-the side of Heroku for PostgreSQL database to work.
+It is important to note that Heroku hosting is currently paid-only. Furthermore, 
+'heroku-postgresql' (aka Heroku Postgres) paid addon is required on the side of 
+Heroku for PostgreSQL database to work.
 
 <div align=center margin=auto> 
   <img src="images/home_page.png" width=80%>
@@ -150,6 +151,13 @@ directory in terminal
 
 ```
 >>> python manage.py migrate
+```
+
+**Create super user**
+- Enter the following command:
+
+```
+>>> python manage.py createsuperuser
 ```
 
 **Run local server to host the website**
