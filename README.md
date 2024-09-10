@@ -143,7 +143,7 @@ directory in terminal
 
 - Copy the terminal output
 - Open ll_env/.env file in a text editor of your choosing
-- Write "SECRET_KEY", than paste the terminal output
+- Write "SECRET_KEY=", than paste the terminal output
 - Save changes to .env file
 
 **Initialize local database**
