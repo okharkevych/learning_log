@@ -5,9 +5,20 @@ import sys
 
 from dotenv import load_dotenv
 
-# Load environment variables from .env and .env.dev files
-load_dotenv('ll_env/.env')
-load_dotenv('ll_env/.env.dev')
+dotenv_path = 'll_env/.env'
+dotenv_dotdev_path = 'll_env/.env.dev'
+
+env_file = load_dotenv(dotenv_path)
+if not env_file and os.path.exists(dotenv_path):
+    raise ValueError(
+        '.env file contains no environmental variables '
+        '(e.g. SECRET_KEY for settings.py)'
+    )
+elif not os.path.exists(dotenv_path):
+    raise FileNotFoundError(f'.env file not found at {dotenv_path}')
+
+if os.path.exists(dotenv_dotdev_path):
+    load_dotenv(dotenv_dotdev_path)
 
 
 def main():
