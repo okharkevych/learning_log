@@ -92,11 +92,11 @@ are installed within a virtual environment dedicated to the app, and the
 environment ensures expected behavior of the app; also, automates dependency 
 installation) 
 
-**Project-specific dependencies (system-wide)**
+**System-wide project-specific dependencies**
 - python3-dev (psycopg2 dependency)
 - libpq-dev (psycopg2 dependency)
 
-**Project-specific dependencies (project-wide)**
+**Project-wide project-specific dependencies**
 - django (web framework for website development)
 - django-bootstrap4 (bootstrap framework integration to create user interface)
 - python-dotenv (to work with environment variables)
@@ -124,14 +124,15 @@ directory in terminal
 ```
 
 ### Project-specific dependencies
-- Open terminal and enter the following command:
+- To install system-wide dependencies, open terminal and enter the following 
+command:
 
 ```
 sudo apt-get install python3-dev libpq-dev
 ```
 
-- Open learning_log directory downloaded earlier in terminal
-- Enter the following commands:
+- To install project-wide dependencies, open learning_log directory downloaded 
+earlier in terminal and enter the following commands:
 
 ```
 >>> pipenv shell
