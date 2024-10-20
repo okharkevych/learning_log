@@ -130,7 +130,7 @@ directory in terminal
 command:
 
 ```
-sudo apt-get install python3-dev libpq-dev
+>>> sudo apt-get install --user python3-dev libpq-dev
 ```
 
 - To install project-wide dependencies, open learning_log directory downloaded 
