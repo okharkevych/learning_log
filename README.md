@@ -105,7 +105,9 @@ installation)
 - gunicorn (server providing access to web apps on Heroku server)
 
 
-## Installation on Linux
+## Installation
+PLEASE NOTE: instructions tested on Ubuntu; exact actions/commands may differ 
+on other systems
 
 ### Standard dependencies
 Please refer to the corresponding official sources for:
