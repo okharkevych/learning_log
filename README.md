@@ -145,7 +145,7 @@ earlier in terminal and enter the following commands:
 ## How to run locally
 - Open learning_log directory downloaded earlier in terminal
 
-**Add a secret key environmental variable to allow the website to run**
+**Add a secret key environment variable to allow the website to run**
 - Enter the following commands:
 
 ```
